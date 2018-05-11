@@ -143,6 +143,21 @@ let messagecount = parseInt(args[1]);
     message.reply("Please type number of messages to delete.");
 }
 break;
+case "antiswear":
+if(message.guild.member(message.author).hasPermission(`ADMINISTRATOR`)) {
+if (args[1] === "on") {
+  guilds[message.guild.id].as=1; //sets it to 1
+  message.channel.sendMessage(`<:aloid_09:406932185371901964> **ANTI-SWEAR MODULE HAS BEEN TURNED ON!!**`)
+} else if (args[1] === "off") {
+  guilds[message.guild.id].as=0; //sets it to 0
+  message.channel.sendMessage(":x: **TURNED OFF ANTI-SWEAR MODULE** :x:")
+} else {
+  message.channel.sendMessage(":x: **INVALID USAGE!** Usage: ${prefix}antiswear on/off");
+}
+} else {
+	message.reply(":x: You have missing permissions: **ADMINISTATOR**! :x:");
+}
+break;
 		
 	
  
