@@ -5,11 +5,9 @@ const bot = new Discord.Client();
 const token = "Hell Nah";
  
 var prefix = '!';
-
-const swears = require('./swears.js'); 
-
+ 
 bot.on("ready", function() {
-      bot.user.setGame("Filter Prefix = !" , "https://www.twitch.tv/123silly");
+      bot.user.setGame("PayBot2 Prefix = !" , "https://www.twitch.tv/123silly");
     console.log(`Started bot as: ${bot.user.tag}!`);
 });
  
@@ -20,74 +18,144 @@ joinleaves.sendMessage(member.toString() + " welcome to the server!");
  
 if(!joinleaves) return;
  
-}); 
-		
-case "mc":
+});
+ 
+bot.on("guildMemberRemove", function(member) {
+ 
+let joinleaves = member.guild.channels.find("name","main-chat");
+ 
+if(!joinleaves) return;
+ 
+joinleaves.send(member.toString() + " has left... We will miss you! :cry:");
+});
+ 
+bot.on("message", function(message) {
+if (message.author.equals(bot.user)) return;
+ 
+if (!message.content.startsWith(prefix)) return;
+ 
+var args = message.content.substring(prefix.length).split(" ");
+ 
+switch (args[0].toLowerCase()) {
+ 
+        case "kick":
+    let modRoles = message.guild.roles.find("name", "Moderator");
+        if (args[1]) {
+    if(message.member.roles.has(modRoles.id)) {
+      let kickMember = message.guild.member(message.mentions.users.first());
+      message.guild.member(kickMember).kick();
+      message.channel.sendMessage(":fire: You Have been Kicked on Riskii's Discord :fire:");
+      message.mentions.users.first().send(`:x: **You have been KICKED on ${message.guild.name}! :thinking: Please contact <@${message.author.id}> for more information!** :x:`)
+    } else {
+      return message.reply(":x: **You dont have permissions to do that!** :x:");
+    }
+    } else {
+    return message.reply(`:x: **Please mention a user** :x:`);
+    }
+break;
+case "ban":
+    let modRolesss = message.guild.roles.find("name", "Moderator");
+        if (args[1]) {
+    if(message.member.roles.has(modRolesss.id)) {
+      let banMember = message.guild.member(message.mentions.users.first());
+      message.guild.member(banMember).ban();
+      message.channel.sendMessage(":fire: You Have been banned on Riskii's Discord :fire:");
+      message.mentions.users.first().send(`:x: **You have been PERM BANNED! on ${message.guild.name}! :thinking: Please contact <@${message.author.id}> for more information!** :x:`)
+    } else {
+      return message.reply(":x: **You dont have permissions to do that!** :x:");
+    }
+    } else {
+    return message.reply(`:x: **Please mention a user** :x:`);
+    }
+break;
+case "mute":
+let modRolez = message.guild.roles.find("name", "Moderator");
+if(message.member.roles.has(modRolez.id)) {
+ let muteMember = message.guild.member(message.mentions.users.first());
+ muteMember.addRole(muteMember.guild.roles.find("name", "Muted"));
+ message.channel.sendMessage(":fire: You Have been Muted on Riskii's Discord :fire:");
+ message.mentions.users.first().send(`:x: **You have been MUTED on ${message.guild.name}! :thinking: Please contact <@${message.author.id}> for more information!** :x:`)
+}
+else {
+ return message.reply("=mute [player]");
+}
+break;
+case "unmute":
+let modRolezz = message.guild.roles.find("name", "Moderator");
 if (args[1]) {
- var mcskin = new Discord.RichEmbed()
-.setTitle(`Minecraft Information`)
-.setDescription(`Welcome back ` + args[1] + `! Here is some information about you:`)
-.addField(`Username:`, args[1], true)
-.addField(`Skin:`, `https://minecraftskinstealer.com/skin.php?u=`+ args[1] +`&s=700`, true)
-.addField(`Use this skin to your account:`, `[Click Me!](https://www.minecraft.net/profile/skin/remote?url=https://minecraft.net/skin/` + args[1] + `.png)`)
-.setAuthor(`Requested by ${message.author.username}`, message.author.displayAvatarURL)
-.setThumbnail(`https://minotar.net/avatar/`+ args[1] + `/100.png`)
-.setColor(0x721487)
-message.channel.sendEmbed(mcskin);
+if(message.member.roles.has(modRolezz.id)) {
+let unMember = message.guild.member(message.mentions.users.first());
+unMember.removeRole(unMember.guild.roles.find("name", "Muted"));
+message.channel.sendMessage(":fire: You Have been Unmuted on Riskii's Discord :fire:");
+message.mentions.users.first().send(`:tada: **You have been unmuted on ${message.guild.name}! :wink: Please contact <@${message.author.id}> for more information!** :tada:`)
 } else {
-message.reply("Please enter a nickname!");
+  return message.reply(":x: **You dont have permissions to do that!** :x:");
+}
+} else {
+return message.reply(`=unmute [player]`);
 }
 break;
-case "antiinvite":
-if(message.guild.member(message.author).hasPermission(`ADMINISTRATOR`)) {
-if (args[1] === "on") {
-  guilds[message.guild.id].advert=1; //sets it to 1
-  message.channel.sendMessage(`<:aloid_09:406932185371901964> **ANTI-DISCORD-LINKS MODULE HAS BEEN TURNED ON!!**`)
-} else if (args[1] === "off") {
-  guilds[message.guild.id].advert=0; //sets it to 0
-  message.channel.sendMessage(":x: **TURNED OFF ANTI-DISCORD-LINKS MODULE** :x:")
-} else {
-  message.channel.sendMessage(":x: **INVALID USAGE!** Usage: ${prefix}antiadvert on/off");
+case "warn":
+let modRoless = message.guild.roles.find("name", "Moderator");
+if (args[1]) {
+if(message.member.roles.has(modRoless.id)) {
+let wMember = message.guild.member(message.mentions.users.first());
+message.channel.sendMessage(":fire: You Have been Warned on Riskii's Discord :fire:");
+message.mentions.users.first().send(`:x: **You have been warned on ${message.guild.name}! :thinking: Please contact <@${message.author.id}> for more information!** :x:`)
 }
-} else {
-	message.reply(":x: You have missing permissions: **ADMINISTATOR**! :x:");
-}
-break;
-case "antiswear":
-if(message.guild.member(message.author).hasPermission(`ADMINISTRATOR`)) {
-if (args[1] === "on") {
-  guilds[message.guild.id].as=1; //sets it to 1
-  message.channel.sendMessage(`<:aloid_09:406932185371901964> **ANTI-SWEAR MODULE HAS BEEN TURNED ON!!**`)
-} else if (args[1] === "off") {
-  guilds[message.guild.id].as=0; //sets it to 0
-  message.channel.sendMessage(":x: **TURNED OFF ANTI-SWEAR MODULE** :x:")
-} else {
-  message.channel.sendMessage(":x: **INVALID USAGE!** Usage: ${prefix}antiswear on/off");
-}
-} else {
-	message.reply(":x: You have missing permissions: **ADMINISTATOR**! :x:");
-}
-break;
-case "purge":
-async function purge() {
-  message.delete(); 
-  if(!message.guild.member(message.author).hasPermission(`MANAGE_MESSAGES`)) {
-      message.reply(`:x: You have missing permissions: **MANAGE_MESSAGES**! :x:`);
-      return;
+else
+{
+  return message.reply(":x: **You dont have permissions to do that!** :x:");
+  } } else {
+      return message.reply(`=mute [player]`);
   }
-
-  if (!args[1]) {
-      message.channel.send('Please use a number as your arguments. \n Usage: ' + prefix + 'purge <amount>'); 
-      return;
-  }
-message.delete();
-  const fetched = await message.channel.fetchMessages({limit: args[1]});
-  console.log(fetched.size + ' messages found, deleting...');
-  message.channel.bulkDelete(fetched)
-      .catch(error => message.channel.send(`Error: ${error}`));
-
-}
-purge();
 break;
-		  
+case "unwarn":
+let modRolex = message.guild.roles.find("name", "Moderator");
+if (args[1]) {
+if(message.member.roles.has(modRolex.id)) {
+let uMember = message.guild.member(message.mentions.users.first());
+message.channel.sendMessage(":arrow_right: The Member Has Been Unwarned! :point_left:");
+ message.mentions.users.first().send(`:tada: **You have been unwarned on ${message.guild.name}! :wink: Please contact <@${message.author.id}> for more information!** :tada:`)
+}
+else
+{
+  return message.reply(":x: **You dont have permissions to do that!** :x:");
+}
+} else {
+return message.reply(`:x: **Please mention a user** :x:`);
+}
+break;
+case "clear":
+if (args[1]) {
+    if (args[1] > 2) {
+        if (args[1] > 50) {
+            message.reply("You are clearing too much messages!");
+        }
+        else {
+let messagecount = parseInt(args[1]);
+  message.channel.fetchMessages({limit: messagecount}).then(messages => message.channel.bulkDelete(messages));
+        }
+    } else {
+        message.reply("You can only delete 3 messages or more.");
+    }
+} else {
+    message.reply("Please type number of messages to delete.");
+}
+break;
+		
+	
+ 
+ 
+ 
+ 
+ 
+}
+});
+ 
+ 
+ 
+ 
+ 
+ 
 bot.login(process.env.BOT_TOKEN);
