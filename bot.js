@@ -7,7 +7,7 @@ const token = "Hell Nah";
 var prefix = '!';
  
 bot.on("ready", function() {
-      bot.user.setGame("PayBot2 Prefix = !" , "https://www.twitch.tv/123silly");
+      bot.user.setGame("Filter Bot Prefix = !" , "https://www.twitch.tv/123silly");
     console.log(`Started bot as: ${bot.user.tag}!`);
 });
  
