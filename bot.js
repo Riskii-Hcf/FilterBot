@@ -5,72 +5,40 @@ const bot = new Discord.Client();
 const token = "Hell Nah";
  
 var prefix = '!';
- 
-var eb = ["You can help youself right?",
-"Not right now Please",
-"Nope",
-"NOOOOOOO",
-"It is certain",
-"It is decidedly so",
-"Without a doubt",
-"Yes, definitely",
-"You may rely on it",
-"As I see it, yes",
-"Most likely",
-"Outlook good",
-"Yes",
-"Signs point to yes",
-"Reply hazy try again",
-"Ask again later",
-"Better not tell you now",
-"Cannot predict now",
-"Concentrate and ask again",
-"Don't count on it",
-"My reply is no",
-"My sources say no",
-"Outlook not so good",
-"Very doubtful"];
 
-var r = ["You can help youself right? or You Can't Kid?",
-"I couldn't hear the kid u were talking about because that person's name is SH*T **SPEAK UP**",
-"Your existence is the reason for scientists to rethink the plausibility of evolution",
-"I'm not trash talking, I'm talking to trash",
-"You're an inspiration for birth control",
-"Calling you a retard is a compliment in comparison to how stupid you actually are",
-"Go Kys U Loser Fag"];
+const swears = require('./swears.js'); 
  
 bot.on("ready", function() {
-      bot.user.setGame("PayBot2 Prefix = !" , "https://www.twitch.tv/123silly");
+	  bot.user.setGame("http://aloid.tk | (help", "https://www.twitch.tv/123silly");
     console.log(`Started bot as: ${bot.user.tag}!`);
 });
- 
-bot.on("guildMemberAdd", function(member) {
-let joinleaves = member.guild.channels.find("name","main-chat");
-if(!joinleaves) return;
-joinleaves.sendMessage(member.toString() + " welcome to the server!");
- 
-if(!joinleaves) return;
- 
-});
- 
-bot.on("guildMemberRemove", function(member) {
- 
-let joinleaves = member.guild.channels.find("name","main-chat");
- 
-if(!joinleaves) return;
- 
-joinleaves.send(member.toString() + " has left... We will miss you! :cry:");
-});
- 
-bot.on("message", function(message) {
-if (message.author.equals(bot.user)) return;
- 
-if (!message.content.startsWith(prefix)) return;
- 
-var args = message.content.substring(prefix.length).split(" ");
- 
-switch (args[0].toLowerCase()) {
 
+//===========================================
+
+bot.on("guildMemberAdd", function(member) {
+
+let joinleave = member.guild.channels.find("name","join-leave");
+let memberRole = member.guild.roles.find("name", "Member");
+
+if(!joinleave) return;
+if(!memberRole) return;
+
+joinleave.send(`:tada: Welcome **` + member.toString() + `** to ${member.guild.name}! Our membercount is: **${member.guild.members.size}**!`);
+member.addRole(memberRole.id);
+});
+
+bot.on("guildMemberRemove", function(member) {
+
+let joinleaves = member.guild.channels.find("name","join-leave");
+
+if(!joinleaves) return;
+
+joinleaves.send(`Oh no... **` + member.toString() + `** left. Our membercount is now **${member.guild.members.size}** :frowning:`);
+});
+//============================
+
+
+bot.on("message", function(message) {
   try{
       if (!guilds[message.guild.id]) {
           guilds[message.guild.id] = {
@@ -131,6 +99,7 @@ if (as === 1) { //detects if antiswear is on or not
       }
   }
 }
+
 
 		
 case "ban":
