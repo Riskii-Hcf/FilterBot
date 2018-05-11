@@ -117,6 +117,7 @@ case "ban":
     return message.reply(`:x: **Please mention a user** :x:`);
     }
 break;
+	
 case "mute":
 let modRolez = message.guild.roles.find("name", "Moderator");
 if(message.member.roles.has(modRolez.id)) {
@@ -129,6 +130,7 @@ else {
  return message.reply("=mute [player]");
 }
 break;
+	
 case "unmute":
 let modRolezz = message.guild.roles.find("name", "Moderator");
 if (args[1]) {
@@ -144,6 +146,7 @@ message.mentions.users.first().send(`:tada: **You have been unmuted on ${message
 return message.reply(`=unmute [player]`);
 }
 break;
+	
 case "antiswear":
 if(message.guild.member(message.author).hasPermission(`ADMINISTRATOR`)) {
 if (args[1] === "on") {
@@ -159,6 +162,7 @@ if (args[1] === "on") {
 	message.reply(":x: You have missing permissions: **ADMINISTATOR**! :x:");
 }
 break;
+	
 case "warn":
 let modRoless = message.guild.roles.find("name", "Moderator");
 if (args[1]) {
@@ -188,6 +192,7 @@ else
 }
 } else {
 break;
+	
 case "clear":
 if (args[1]) {
     if (args[1] > 2) {
