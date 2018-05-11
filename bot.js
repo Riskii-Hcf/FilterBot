@@ -4,7 +4,7 @@ const bot = new Discord.Client();
  
 const token = "Hell Nah";
 
-const swears = require('./swears.js'); 
+const swear = require('./swear.js'); 
  
 var prefix = '!';
  
