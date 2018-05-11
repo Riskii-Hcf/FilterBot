@@ -1,0 +1,12 @@
+exports.list=[
+   "fuck",
+   "nigga",
+   "nigger",
+   "cunt",
+   "shit",
+   "bitch",
+   "faggot",
+   "porn",
+   "pornhub",
+   "hentai",
+]
