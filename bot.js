@@ -39,6 +39,68 @@ if (!message.content.startsWith(prefix)) return;
 var args = message.content.substring(prefix.length).split(" ");
  
 switch (args[0].toLowerCase()) {
+		
+bot.on("message", function(message) {
+  try{
+      if (!guilds[message.guild.id]) {
+          guilds[message.guild.id] = {
+              prefix: "(",
+              advert: 0,
+			  antiswear: 0,
+          };
+      }
+  } catch (e) {
+    console.log(e);
+  }
+	
+  const advert = guilds[message.guild.id].advert;
+
+	if (advert === 1) { //detects if antiswear is on or not
+  var string = message.content;
+  var lower = string.toLowerCase();
+  for (i = 0; i < 554; i++)
+  {
+      if (lower.indexOf(ads.list[i]) >= 0)
+      {
+          if(message.guild.member(message.author).hasPermission(`ADMINISTRATOR`)) {
+			  //admins can advertise.
+         } else {
+          message.delete();
+          message.reply(":x: You are not allowed to advertise.")
+          //userData.swears++;
+          break;
+}
+      }
+  }
+}
+
+
+function clean(text) {
+  if (typeof(text) === `string`)
+    return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, `@` + String.fromCharCode(8203));
+  else
+      return text;
+}
+
+const as = guilds[message.guild.id].as;
+
+if (as === 1) { //detects if antiswear is on or not
+  var string = message.content;
+  var lower = string.toLowerCase();
+  for (i = 0; i < 554; i++)
+  {
+      if (lower.indexOf(swears.list[i]) >= 0)
+      {
+          if(message.guild.member(message.author).hasPermission(`ADMINISTRATOR`)) {
+         } else {
+          message.delete();
+          message.reply(":x: You are not allowed to swear.")
+          //userData.swears++;
+          break;
+}
+      }
+  }
+}
  
         case "kick":
     let modRoles = message.guild.roles.find("name", "Moderator");
@@ -145,7 +207,7 @@ let messagecount = parseInt(args[1]);
     message.reply("Please type number of messages to delete.");
 }
 break;
-case "antiswear":
+case "swearfilter":
 if(message.guild.member(message.author).hasPermission(`ADMINISTRATOR`)) {
 if (args[1] === "on") {
   guilds[message.guild.id].as=1; //sets it to 1
