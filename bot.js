@@ -7,8 +7,9 @@ const token = "Hell Nah";
 var prefix = '!';
 
 const swears = require('./swears.js'); 
+
 bot.on("ready", function() {
-      bot.user.setGame("PayBot2 Prefix = !" , "https://www.twitch.tv/123silly");
+      bot.user.setGame("Filter Prefix = !" , "https://www.twitch.tv/123silly");
     console.log(`Started bot as: ${bot.user.tag}!`);
 });
  
@@ -19,25 +20,7 @@ joinleaves.sendMessage(member.toString() + " welcome to the server!");
  
 if(!joinleaves) return;
  
-});
- 
-bot.on("guildMemberRemove", function(member) {
- 
-let joinleaves = member.guild.channels.find("name","main-chat");
- 
-if(!joinleaves) return;
- 
-joinleaves.send(member.toString() + " has left... We will miss you! :cry:");
-});
- 
-bot.on("message", function(message) {
-if (message.author.equals(bot.user)) return;
- 
-if (!message.content.startsWith(prefix)) return;
- 
-var args = message.content.substring(prefix.length).split(" ");
- 
-switch (args[0].toLowerCase()) {
+}); 
 		
 case "mc":
 if (args[1]) {
