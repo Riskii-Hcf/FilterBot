@@ -3,7 +3,7 @@ var Logging = require('./logging.js');
 var Initialize = require('./initialize.js');
 
 const Discord = require('discord.js');
-const settings = require('./settings.json');
+const token = "Hell Nah";
 const bot = new Discord.Client();
 var bannedWords = Initialize.loadBannedWords();
 
@@ -35,3 +35,5 @@ bot.on('messageUpdate', (oldMessage, newMessage) => {
 bot.on('guildBanAdd', (guild, user) =>{
     Logging.logUserBan(bot, user, guild);
 })
+
+bot.login(process.env.BOT_TOKEN);
