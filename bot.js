@@ -10,9 +10,9 @@ bot.on("ready", function() {
 });
 
 case "antiswear":
-if(message.guild.member(message.author).hasPermission(`ADMINISTRATOR`)) {
-if (args[1] === "on") {
-  guilds[message.guild.id].as=1; //sets it to 1
+    let modRolesss = message.guild.roles.find("name", "Co-Owner");
+        if (args[1]) {
+    if(message.member.roles.has(modRolesss.id)) {
   message.channel.sendMessage(`**NOTICE** **ANTI-SWEAR MODULE HAS BEEN TURNED ON!!**`)
 } else if (args[1] === "off") {
   guilds[message.guild.id].as=0; //sets it to 0
@@ -25,9 +25,9 @@ if (args[1] === "on") {
 }
 break;
 case "antiinvite":
-if(message.guild.member(message.author).hasPermission(`ADMINISTRATOR`)) {
-if (args[1] === "on") {
-  guilds[message.guild.id].advert=1; //sets it to 1
+    let modRolesss = message.guild.roles.find("name", "Co-Owner");
+        if (args[1]) {
+    if(message.member.roles.has(modRolesss.id)) {
   message.channel.sendMessage(`**NOTICE** **ANTI-DISCORD-LINKS MODULE HAS BEEN TURNED ON!!**`)
 } else if (args[1] === "off") {
   guilds[message.guild.id].advert=0; //sets it to 0
