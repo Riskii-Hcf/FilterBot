@@ -8,5 +8,9 @@ bot.on("ready", function() {
     console.log(`Started bot as: ${bot.user.tag}!`);
 });
 
+case "chatfilter":
+message.reply(`{PREFIX}chatfilter ON/OFF`);
+break;
+
 
 bot.login(process.env.BOT_TOKEN);
