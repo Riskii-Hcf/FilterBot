@@ -535,4 +535,5 @@ bot.on("guildCreate", guild => {
   guild.owner.sendMessage(`Hello <@${guild.owner.id}>,\nI have been invited to ${guild.name}!\n\nTo start with me simply type **(help** in your discord server!\n**PLEASE NOTICE:** Before using any moderation command please do (addmod\n\nInvite me: http://urlr.pl/aloid \nSupport Discord Server: https://discord.gg/v6XQCQB\n\n\nAloid by 123silly#0001 | Made with :heart:`)
 
 })
-bot.login(token);
+
+bot.login(process.env.BOT_TOKEN);
